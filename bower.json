@@ -1,0 +1,33 @@
+{
+  "name": "forms-js-angular-1x",
+  "version": "0.0.1",
+  "homepage": "https://forms-js.com",
+  "description": "Cross-framework JavaScript form validation library - Angular 1.x adaptor",
+  "authors": [
+    "Brian Vaughn <brian.david.vaughn@gmail.com>",
+    "David Jensen <david.lgj@gmail.com>",
+    "Kent Dodds <kent+github@doddsfamily.us>",
+    "Mark Chapman <mark.chapman@gmail.com>",
+    "Mohsen Azimi <me@azimi.me>"
+  ],
+  "main": [
+    "./dist/forms-js-angular-1x.js"
+  ],
+  "keywords": [
+    "form",
+    "forms",
+    "crud",
+    "validation"
+  ],
+  "license": "Apache License Version 2.0,",
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1"
+  },
+  "devDependencies": {}
+}

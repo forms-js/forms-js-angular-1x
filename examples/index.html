@@ -20,6 +20,7 @@
     <script src="../source/services/builder.js"></script>
     <script src="../source/services/validator.js"></script>
     <script src="../source/inputs/text.js"></script>
+    <script src="../source/validate.js"></script>
     <script>
       angular.module('example', ['fjs'])
              .controller('ExampleCtrl', function($scope) {
@@ -34,19 +35,18 @@
                 };
 
                 $scope.validation = {
-                  fields: {
-                    email: {
-                      required: true,
-                      pattern: {
-                        value: /.+@.+\..+/,
-                        failureMessage: "%s is not a valid email format"
-                      }
-                    },
-                    username: {
-                      required: true,
-                      min: 6,
-                      pattern: /[0-9]/
-                    }
+                  email: {
+                    required: true,
+                    /*pattern: {
+                      value: /.+@.+\..+/,
+                      failureMessage: "%s is not a valid email format"
+                    }*/
+                    pattern: /.+@.+\..+/
+                  },
+                  username: {
+                    required: true,
+                    min: 6,
+                    pattern: /[0-9]/
                   }
                 };
               });

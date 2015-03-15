@@ -1,1 +1,3 @@
-angular.module('fjs').service('fjsValidator', formsjs.ValidationService);
+angular.module('fjs').factory('fjsValidator', function() {
+  return new formsjs.ValidationService();
+});

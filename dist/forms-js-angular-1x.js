@@ -1,14 +1,12 @@
-/// <reference path="../../bower_components/forms-js/dist/forms-js.d.ts" />
-var adaptor;
-(function (adaptor) {
-    var services;
-    (function (services) {
-        function validator() {
-            return new formsjs.ValidationService();
-        }
-        services.validator = validator;
-    })(services = adaptor.services || (adaptor.services = {}));
-})(adaptor || (adaptor = {}));
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    root.adaptor = factory();
+  }
+}(this, function() {
 var adaptor;
 (function (adaptor) {
     var services;
@@ -136,22 +134,28 @@ var adaptor;
         fields.text = text;
     })(fields = adaptor.fields || (adaptor.fields = {}));
 })(adaptor || (adaptor = {}));
+/// <reference path="../../bower_components/forms-js/dist/forms-js.d.ts" />
+// A directive that validates via formjs.AttributeMetadata
 var adaptor;
 (function (adaptor) {
     var directives;
     (function (directives) {
-        function validate(fjsValidator, $q) {
+        function validate($q) {
             return {
                 restrict: 'AE',
                 scope: false,
-                require: 'ngModel',
-                link: function (scope, element, attrs, ngModel) {
-                    scope.ngModel = ngModel;
-                    ngModel.$asyncValidators.fjs = function (modelValue, viewValue) {
-                        console.log('Going to validate ', modelValue);
+                require: ['ngModel', '^formsJs'],
+                link: function (scope, element, attrs, controllers) {
+                    scope.ngModel = controllers[0];
+                    var formsJs = controllers[1];
+                    // Register the field
+                    var attribute = formsJs.registerAttribute(attrs.fjsValidate);
+                    // We hook into the async validators API that NgModelController exposes.
+                    scope.ngModel.$asyncValidators.fjs = function (modelValue, viewValue) {
+                        console.log('Going to validate ', modelValue, viewValue);
                         var formData = {};
                         formData[attrs.fjsValidate] = modelValue;
-                        return fjsValidator.validateField(attrs.fjsValidate, formData, scope.validation).then(function (result) {
+                        return formsJs.validationService.validateField(attrs.fjsValidate, formData, scope.validation).then(function (result) {
                             console.log('and the result is!', result);
                             scope.error = "";
                             return $q.when(true);
@@ -167,11 +171,13 @@ var adaptor;
         directives.validate = validate;
     })(directives = adaptor.directives || (adaptor.directives = {}));
 })(adaptor || (adaptor = {}));
+/// <reference path="../../bower_components/forms-js/dist/forms-js.d.ts" />
 var adaptor;
 (function (adaptor) {
     var directives;
     (function (directives) {
-        function formsjs($compile, builder) {
+        function formsjsDirective($compile, builder) {
+            var formsjsForm;
             return {
                 restrict: 'AE',
                 scope: {
@@ -179,11 +185,17 @@ var adaptor;
                     validation: '=',
                     model: '='
                 },
+                controller: ['$scope', function ($scope) {
+                    formsjsForm = new formsjs.Form();
+                    this.validationService = formsjsForm.validationService;
+                    this.registerAttribute = formsjsForm.registerAttribute.bind(formsjsForm);
+                }],
                 link: function (scope, element, attrs) {
                     scope.$watchGroup(['view', 'validation'], function (values) {
                         var view = values[0];
                         var validation = values[1];
                         if (view !== undefined && validation !== undefined) {
+                            formsjsForm.validationSchema = scope.validation;
                             var frag = builder(view);
                             element[0].appendChild(frag);
                             $compile(element.children())(scope);
@@ -192,16 +204,18 @@ var adaptor;
                 }
             };
         }
-        directives.formsjs = formsjs;
+        directives.formsjsDirective = formsjsDirective;
     })(directives = adaptor.directives || (adaptor.directives = {}));
 })(adaptor || (adaptor = {}));
 /// <reference path="../definitions/angularjs/angular.d.ts" />
-/// <reference path="services/validator.ts" />
 /// <reference path="services/builder.ts" />
 /// <reference path="fields/text.ts" />
 /// <reference path="directives/validate.ts" />
 /// <reference path="directives/fjs.ts" />
 var adaptor;
 (function (adaptor) {
-    angular.module('fjs', []).factory('fjsValidator', adaptor.services.validator).factory('fjsBuilder', adaptor.services.builder).directive('fjsText', adaptor.fields.text).directive('fjsValidate', ['fjsValidator', '$q', adaptor.directives.validate]).directive('formsJs', ['$compile', 'fjsBuilder', adaptor.directives.formsjs]);
+    angular.module('fjs', []).factory('fjsBuilder', adaptor.services.builder).directive('fjsText', adaptor.fields.text).directive('fjsValidate', ['$q', adaptor.directives.validate]).directive('formsJs', ['$compile', 'fjsBuilder', adaptor.directives.formsjsDirective]);
 })(adaptor || (adaptor = {}));
+
+return adaptor;
+}));

@@ -26,7 +26,8 @@
                 $scope.view = {
                   fields: {
                     username: {inputType: 'text', label: 'Username'},
-                    email: {inputType: 'text', label: 'Email'}
+                    email: {inputType: 'text', label: 'Email'},
+                    comment: {inputType: 'textarea', label: 'Comment'}
                   }
                 };
 
@@ -43,7 +44,8 @@
                     required: true,
                     min: 6,
                     pattern: /[0-9a-zA-Z]+/
-                  }
+                  },
+                  comment: {}
                 };
               });
 

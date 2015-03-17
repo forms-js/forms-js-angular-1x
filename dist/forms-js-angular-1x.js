@@ -134,6 +134,26 @@ var adaptor;
         fields.text = text;
     })(fields = adaptor.fields || (adaptor.fields = {}));
 })(adaptor || (adaptor = {}));
+var adaptor;
+(function (adaptor) {
+    var fields;
+    (function (fields) {
+        function textarea() {
+            return {
+                scope: true,
+                restrict: 'AE',
+                template: function (tElement, tAttrs) {
+                    return '<label>{{ cfg.label }}</label><textarea class="form-control" fjs-validate="KEY" ng-model="model.KEY"></textarea><div class="help-block">{{error}}</div>'.replace(/KEY/g, tAttrs.key);
+                },
+                link: function (scope, element, attrs) {
+                    var key = attrs.key;
+                    scope.cfg = scope.view.fields[key];
+                }
+            };
+        }
+        fields.textarea = textarea;
+    })(fields = adaptor.fields || (adaptor.fields = {}));
+})(adaptor || (adaptor = {}));
 /// <reference path="../../bower_components/forms-js/dist/forms-js.d.ts" />
 // A directive that validates via formjs.AttributeMetadata
 var adaptor;
@@ -210,11 +230,12 @@ var adaptor;
 /// <reference path="../definitions/angularjs/angular.d.ts" />
 /// <reference path="services/builder.ts" />
 /// <reference path="fields/text.ts" />
+/// <reference path="fields/textarea.ts" />
 /// <reference path="directives/validate.ts" />
 /// <reference path="directives/fjs.ts" />
 var adaptor;
 (function (adaptor) {
-    angular.module('fjs', []).factory('fjsBuilder', adaptor.services.builder).directive('fjsText', adaptor.fields.text).directive('fjsValidate', ['$q', adaptor.directives.validate]).directive('formsJs', ['$compile', 'fjsBuilder', adaptor.directives.formsjsDirective]);
+    angular.module('fjs', []).factory('fjsBuilder', adaptor.services.builder).directive('fjsText', adaptor.fields.text).directive('fjsTextarea', adaptor.fields.textarea).directive('fjsValidate', ['$q', adaptor.directives.validate]).directive('formsJs', ['$compile', 'fjsBuilder', adaptor.directives.formsjsDirective]);
 })(adaptor || (adaptor = {}));
 
 return adaptor;

@@ -16,11 +16,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.js"></script>
     <script src="../bower_components/forms-js/dist/forms-js.js"></script>
-    <script src="../source/adaptor.js"></script>
-    <script src="../source/services/builder.js"></script>
-    <script src="../source/services/validator.js"></script>
-    <script src="../source/inputs/text.js"></script>
-    <script src="../source/validate.js"></script>
+    <script src="../dist/forms-js-angular-1x.js"></script>
     <script>
       angular.module('example', ['fjs'])
              .controller('ExampleCtrl', function($scope) {
@@ -46,7 +42,7 @@
                   username: {
                     required: true,
                     min: 6,
-                    pattern: /[0-9]/
+                    pattern: /[0-9a-zA-Z]+/
                   }
                 };
               });

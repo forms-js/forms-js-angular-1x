@@ -24,7 +24,7 @@ gulp.task('build', function(callback) {
     'compile',
     'uglify',
     'umdify',
-    'map',
+    //'map',
     callback);
 });
 
@@ -68,6 +68,10 @@ gulp.task('test:watch', function() {
       configFile: 'karma.conf.js',
       action: 'watch'
     }));
+});
+
+gulp.task('compile:watch', function() {
+  return gulp.watch(sources, ['compile']);
 });
 
 gulp.task('uglify', function() {

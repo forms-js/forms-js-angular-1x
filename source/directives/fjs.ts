@@ -12,12 +12,17 @@ module adaptor.directives {
         validation: '=',
         model: '='
       },
-      controller: ['$scope', function($scope:ng.IScope) {
+      controller: [function() {
         formsjsForm = new formsjs.Form();
-        this.validationService = formsjsForm.validationService;
         this.registerAttribute = formsjsForm.registerAttribute.bind(formsjsForm);
       }],
       link: function(scope, element, attrs) {
+
+        // Shallow watch on model so we catch if the instance changes.
+        scope.$watch('model', function(model) {
+          formsjsForm.formData = model;
+        })
+
         scope.$watchGroup(['view','validation'], function(values) {
           var view  = values[0];
           var validation = values[1];

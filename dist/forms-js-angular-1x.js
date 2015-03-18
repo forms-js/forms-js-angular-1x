@@ -123,7 +123,7 @@ var adaptor;
                 scope: true,
                 restrict: 'AE',
                 template: function (tElement, tAttrs) {
-                    return '<label>{{ cfg.label }}</label><input type="text" class="form-control" fjs-validate="KEY" ng-model="model.KEY"><div class="help-block">{{error}}</div>'.replace(/KEY/g, tAttrs.key);
+                    return '<label>{{ cfg.label }}</label><input type="text" class="form-control" fjs-validate="KEY" ng-model="model.KEY"><div class="help-block">{{attribute.errorMessages[0]}}</div>'.replace(/KEY/g, tAttrs.key);
                 },
                 link: function (scope, element, attrs) {
                     var key = attrs.key;
@@ -143,7 +143,7 @@ var adaptor;
                 scope: true,
                 restrict: 'AE',
                 template: function (tElement, tAttrs) {
-                    return '<label>{{ cfg.label }}</label><textarea class="form-control" fjs-validate="KEY" ng-model="model.KEY"></textarea><div class="help-block">{{error}}</div>'.replace(/KEY/g, tAttrs.key);
+                    return '<label>{{ cfg.label }}</label><textarea class="form-control" fjs-validate="KEY" ng-model="model.KEY"></textarea><div class="help-block">{{attribute.errorMessages[0]}}</div>'.replace(/KEY/g, tAttrs.key);
                 },
                 link: function (scope, element, attrs) {
                     var key = attrs.key;
@@ -170,21 +170,23 @@ var adaptor;
                     var formsJs = controllers[1];
                     // Register the field
                     var attribute = formsJs.registerAttribute(attrs.fjsValidate);
-                    // We hook into the async validators API that NgModelController exposes.
-                    scope.ngModel.$asyncValidators.fjs = function (modelValue, viewValue) {
-                        console.log('Going to validate ', modelValue, viewValue);
-                        var formData = {};
-                        formData[attrs.fjsValidate] = modelValue;
-                        return formsJs.validationService.validateField(attrs.fjsValidate, formData, scope.validation).then(function (result) {
+                    scope.attribute = attribute;
+                    // We can't hook into the standard validators in angular since we like to
+                    // validate after the model has actually gotten updated.
+                    // TODO: This might need to be a standard watch instead so that it picks up changes
+                    //       from the outside scope.
+                    scope.ngModel.$viewChangeListeners.push(function () {
+                        console.log('Going to validate ', scope.ngModel.$modelValue);
+                        return attribute.validate().then(function (result) {
                             console.log('and the result is!', result);
-                            scope.error = "";
+                            scope.ngModel.$setValidity('fjs', false);
                             return $q.when(true);
                         }, function (err) {
-                            scope.error = err[0];
-                            console.log(err);
+                            console.log(err, attribute.errorMessages);
+                            scope.ngModel.$setValidity('fjs', false);
                             return $q.reject();
                         });
-                    };
+                    });
                 }
             };
         }
@@ -205,12 +207,15 @@ var adaptor;
                     validation: '=',
                     model: '='
                 },
-                controller: ['$scope', function ($scope) {
+                controller: [function () {
                     formsjsForm = new formsjs.Form();
-                    this.validationService = formsjsForm.validationService;
                     this.registerAttribute = formsjsForm.registerAttribute.bind(formsjsForm);
                 }],
                 link: function (scope, element, attrs) {
+                    // Shallow watch on model so we catch if the instance changes.
+                    scope.$watch('model', function (model) {
+                        formsjsForm.formData = model;
+                    });
                     scope.$watchGroup(['view', 'validation'], function (values) {
                         var view = values[0];
                         var validation = values[1];

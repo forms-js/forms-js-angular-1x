@@ -13,25 +13,27 @@ module adaptor.directives {
 
         // Register the field
         var attribute:formsjs.AttributeMetadata = formsJs.registerAttribute(attrs.fjsValidate)
+        scope.attribute = attribute;
 
+        // We can't hook into the standard validators in angular since we like to
+        // validate after the model has actually gotten updated.
 
-        // We hook into the async validators API that NgModelController exposes.
-        scope.ngModel.$asyncValidators.fjs = function(modelValue, viewValue) {
-          console.log('Going to validate ', modelValue, viewValue)
+        // TODO: This might need to be a standard watch instead so that it picks up changes
+        //       from the outside scope.
+        scope.ngModel.$viewChangeListeners.push(function() {
+          console.log('Going to validate ', scope.ngModel.$modelValue)
 
-          var formData = {};
-          formData[attrs.fjsValidate] = modelValue;
-          return formsJs.validationService.validateField(attrs.fjsValidate, formData, scope.validation)
-                             .then(function(result) {
-                               console.log('and the result is!', result);
-                               scope.error = "";
-                               return $q.when(true);
-                             }, function(err) {
-                               scope.error = err[0];
-                               console.log(err);
-                               return $q.reject();
-                             });
-        };
+          return attribute.validate()
+                          .then(function(result) {
+                            console.log('and the result is!', result);
+                            scope.ngModel.$setValidity('fjs', false);
+                            return $q.when(true);
+                          }, function(err) {
+                            console.log(err, attribute.errorMessages)
+                            scope.ngModel.$setValidity('fjs', false);
+                            return $q.reject();
+                          });
+        });
 
       }
     };

@@ -24,7 +24,7 @@ gulp.task('build', function(callback) {
     'compile',
     'uglify',
     'umdify',
-    'map',
+    //'map',
     callback);
 });
 
@@ -69,6 +69,16 @@ gulp.task('test:watch', function() {
       action: 'watch'
     }));
 });
+
+gulp.task('compile:watch', function() {
+  return gulp.watch(sources, ['compile']);
+});
+
+
+gulp.task('build:watch', function() {
+  return gulp.watch(sources, ['build']);
+});
+
 
 gulp.task('uglify', function() {
   var fs = require('fs');
@@ -115,10 +125,10 @@ var umdHelper = function(sources, directory) {
     .src(sources)
     .pipe(umd({
       exports: function(file) {
-        return 'fjs';
+        return 'adaptor';
       },
       namespace: function(file) {
-        return 'fjs';
+        return 'adaptor';
       }
       //template: path.join(__dirname, 'templates/returnExports.js')
     }))

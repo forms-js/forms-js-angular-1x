@@ -27,7 +27,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1"
+    "angular": "~1",
+    "forms-js": "https://github.com/forms-js/forms-js.git"
   },
   "devDependencies": {}
 }

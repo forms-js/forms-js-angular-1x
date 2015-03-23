@@ -1,4 +1,4 @@
-<doctype html>
+<doctype html></doctype>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -9,48 +9,35 @@
 
   </head>
   <body ng-app="example" ng-controller="ExampleCtrl">
-    <div class="container">
-      <form forms-js view="view" validation="validation" model="model"></form>
-      ## {{ model}}
-    </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.js"></script>
-    <script src="../bower_components/forms-js/dist/forms-js.js"></script>
+    <script src="../node_modules/forms-js/dist/forms-js.js"></script>
     <script src="../dist/forms-js-angular-1x.js"></script>
     <script>
-      angular.module('example', ['fjs'])
-             .controller('ExampleCtrl', function($scope) {
+      angular.module('example', ['fjs']).controller('ExampleCtrl', function($scope) {
+        $scope.model = {
+          email: 'briandavidvaughn@gmail.com'
+        };
 
-                $scope.model = {};
-
-                $scope.view = {
-                  fields: {
-                    username: {inputType: 'text', label: 'Username'},
-                    email: {inputType: 'text', label: 'Email'},
-                    comment: {inputType: 'textarea', label: 'Comment'}
-                  }
-                };
-
-                $scope.validation = {
-                  email: {
-                    required: true,
-                    /*pattern: {
-                      value: /.+@.+\..+/,
-                      failureMessage: "%s is not a valid email format"
-                    }*/
-                    pattern: /.+@.+\..+/
-                  },
-                  username: {
-                    required: true,
-                    min: 6,
-                    pattern: /[0-9a-zA-Z]+/
-                  },
-                  comment: {}
-                };
-              });
-
-
-
+        $scope.validation = {
+          email: {
+            required: true,
+            pattern: /.+@.+\..+/,
+            patternFailureMessage: "%s is not a valid email format"
+          },
+          username: {
+            required: true,
+            min: 6,
+            pattern: /[0-9a-zA-Z]+/
+          }
+        };
+      });
     </script>
+
+    <div class="container">
+      <fjs-form validation="validation" model="model">
+        <fjs-text field-name="email"></fjs-text>
+        <fjs-text field-name="username"></fjs-text>
+      </fjs-form>
+    </div>
   </body>
 </html>

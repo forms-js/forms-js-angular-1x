@@ -28,8 +28,21 @@
             required: true,
             min: 6,
             pattern: /[0-9a-zA-Z]+/
+          },
+          firstname: {
+            required: true
+          }
+          lastname: {
+            required: true
           }
         };
+        
+        $scope.view = {
+          username: {inputType: 'text', label: 'Username'},
+          email: {inputType: 'text', label: 'Email'},
+          comment: {inputType: 'textarea', label: 'Comment'}
+        };
+
       });
     </script>
 
@@ -37,7 +50,15 @@
       <fjs-form validation="validation" model="model">
         <fjs-text field-name="email"></fjs-text>
         <fjs-text field-name="username"></fjs-text>
+
+        <fieldset>
+          <legend>Generated</field>
+            <fjs-view view="view">
+            </fjs-view>
+        </fildset>
       </fjs-form>
     </div>
+
+
   </body>
 </html>

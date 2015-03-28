@@ -10,7 +10,8 @@ module adaptor.directives {
       templateUrl: '/templates/text.html',
 
       scope: {
-        fieldName: '@'
+        fieldName: '@',
+        label: '@'
       },
 
       link: function($scope:any,
@@ -20,7 +21,6 @@ module adaptor.directives {
 
         if (!$scope.fieldName) {
           $log.error('Missing required field "fieldName"');
-
           return;
         }
 
@@ -40,8 +40,6 @@ module adaptor.directives {
             () => $scope.$digest()
           );
         });
-
-        // TODO Generate label
       }
     };
   }

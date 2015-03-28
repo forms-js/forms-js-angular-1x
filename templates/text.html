@@ -1,9 +1,8 @@
 <div>
     <label for="{{watchPath}}" ng-bind="label"></label>
 
+    <input id="{{watchPath}}" type="text" ng-model="bindable">
     <div ng-if="attributeMetadata.errorMessages.length"
          ng-bind="attributeMetadata.errorMessages">
     </div>
-
-    <input id="{{watchPath}}" type="text" ng-model="bindable">
 </div>

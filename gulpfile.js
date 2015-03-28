@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var karma = require('gulp-karma');
 var runSequence = require('run-sequence');
+var webserver = require('gulp-webserver');
 
 var sources = [
   'source/**/*.ts'
@@ -134,3 +135,13 @@ var umdHelper = function(sources, directory) {
     }))
     .pipe(gulp.dest(directory));
 };
+
+
+gulp.task('server',['build'], function() {
+  gulp.src('.')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      open: true
+    }));
+});

@@ -31,16 +31,15 @@
           },
           firstname: {
             required: true
-          }
+          },
           lastname: {
             required: true
           }
         };
-        
+
         $scope.view = {
-          username: {inputType: 'text', label: 'Username'},
-          email: {inputType: 'text', label: 'Email'},
-          comment: {inputType: 'textarea', label: 'Comment'}
+          firstname: {inputType: 'text', label: 'First name'},
+          lastname: {inputType: 'text', label: 'Last name'},
         };
 
       });
@@ -48,14 +47,15 @@
 
     <div class="container">
       <fjs-form validation="validation" model="model">
-        <fjs-text field-name="email"></fjs-text>
-        <fjs-text field-name="username"></fjs-text>
 
-        <fieldset>
-          <legend>Generated</field>
-            <fjs-view view="view">
-            </fjs-view>
-        </fildset>
+        <h3>Directives</h3>
+        <fjs-text field-name="email" label="Email"></fjs-text>
+        <fjs-text field-name="username" label="Username"></fjs-text>
+
+        <h3>Generated</h3>
+        <fjs-view view="view">
+        </fjs-view>
+        
       </fjs-form>
     </div>
 

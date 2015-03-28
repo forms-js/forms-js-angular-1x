@@ -12,10 +12,12 @@ module adaptor.services {
         // FIXME: error handling if inputType is missing.
         var elem = document.createElement('div');
         elem.setAttribute('fjs-' + config.inputType, '');
-        elem.setAttribute('key', key);
+        elem.setAttribute('field-name', key);
 
-        // FIXME: support for complex keys
-        elem.setAttribute('config', "view['" + key + '"]');
+        // The rest of the view config is added as attributes.
+        angular.forEach(config, function(value, name) {
+          elem.setAttribute(name, value);
+        });
 
         elem.className = 'form-group';
 

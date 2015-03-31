@@ -4,16 +4,19 @@
     <meta charset="utf-8">
     <title>Form JS Angular 1.x example</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
+    <link rel="stylesheet" href="https://rawgit.com/angular/bower-material/master/angular-material.css">
+    <link rel="stylesheet" href="https://material.angularjs.org/docs.css">
   </head>
   <body ng-app="example" ng-controller="ExampleCtrl">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-aria.js"></script>
+    <script src="https://rawgit.com/angular/bower-material/master/angular-material.js"></script>
     <script src="../node_modules/forms-js/dist/forms-js.js"></script>
     <script src="../dist/forms-js-angular-1x.js"></script>
     <script>
-      angular.module('example', ['fjs']).controller('ExampleCtrl', function($scope) {
+      var module = angular.module('example', ['ngAnimate', 'ngMaterial', 'fjs']);
+      module.controller('ExampleCtrl', function($scope) {
         $scope.model = {
           email: 'briandavidvaughn@gmail.com'
         };
@@ -41,24 +44,27 @@
           firstname: {inputType: 'text', label: 'First name'},
           lastname: {inputType: 'text', label: 'Last name'},
         };
-
       });
     </script>
 
-    <div class="container">
-      <fjs-form validation="validation" model="model">
+    <div layout-fill>
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h3>
+            <span>Example form</span>
+          </h3>
+        </div>
+      </md-toolbar>
+      <md-content class="md-padding">
+        <fjs-form validation="validation" model="model">
+          <h3>Directives</h3>
+          <fjs-text field-name="email" label="Email"></fjs-text>
+          <fjs-text field-name="username" label="Username" placeholder="This should be unique"></fjs-text>
 
-        <h3>Directives</h3>
-        <fjs-text field-name="email" label="Email"></fjs-text>
-        <fjs-text field-name="username" label="Username"></fjs-text>
-
-        <h3>Generated</h3>
-        <fjs-view view="view">
-        </fjs-view>
-        
-      </fjs-form>
+          <h3>Generated</h3>
+          <fjs-view view="view"></fjs-view>
+        </fjs-form>
+      </md-content>
     </div>
-
-
   </body>
 </html>

@@ -20,7 +20,7 @@
   "main": "gulpfile.js",
   "directories": {},
   "dependencies": {
-    "forms-js": "0.0.2"
+    "forms-js": "git://github.com/forms-js/forms-js.git"
   },
   "devDependencies": {
     "es6-promise": "~2.0.1",

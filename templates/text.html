@@ -1,8 +1,14 @@
-<div>
-    <label for="{{watchPath}}" ng-bind="label"></label>
+<md-input-container class="md-default-theme">
+  <label for="{{watchPath}}" ng-bind="label"></label>
 
-    <input id="{{watchPath}}" type="text" ng-model="bindable">
-    <div ng-if="attributeMetadata.errorMessages.length"
-         ng-bind="attributeMetadata.errorMessages">
-    </div>
-</div>
+  <input id="{{watchPath}}"
+         class="md-input"
+         ng-model="bindable"
+         data-placeholder="{{placeholder}}"
+         ng-disabled="attributeMetadata.disabled" />
+
+  <div ng-messages="attributeMetadata.errorMessages"
+       ng-show="attributeMetadata.errorMessages.length">
+    <div ng-bind="attributeMetadata.errorMessages"></div>
+  </div>
+</md-input-container>

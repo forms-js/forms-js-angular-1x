@@ -11,7 +11,8 @@ module adaptor.directives {
 
       scope: {
         fieldName: '@',
-        label: '@'
+        label: '@',
+        placeholder: '@?'
       },
 
       link: function($scope:any,

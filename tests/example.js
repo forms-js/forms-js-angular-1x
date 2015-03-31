@@ -3,13 +3,11 @@
  */
 describe('Example', function() {
 
-  var example;
   var rejectedWith;
   var resolvedWith;
 
   beforeEach(function() {
-    example = new fjs.Example();
-    rejectedWith = resolvedWith = undefined;
+    // TODO setup
 
     // Install polyfill if the browser doesn't support ES6 Promises.
     ES6Promise.polyfill();
@@ -22,31 +20,7 @@ describe('Example', function() {
     jasmine.clock().uninstall();
   });
 
-  var validate = function(value) {
-    var promise = example.validate(value);
-    example.validate(value).then(
-      function(value) {
-        resolvedWith = value;
-      },
-      function(error) {
-        rejectedWith = error;
-      }
-    );
-
-    jasmine.clock().tick('1');
-  };
-
-  it('should accept truthy values', function() {
-    validate(true);
-
-    expect(resolvedWith).toBeTruthy();
-    expect(rejectedWith).toBeFalsy();
-  });
-
-  it('should reject falsy values', function() {
-    validate(false);
-
-    expect(resolvedWith).toBeFalsy();
-    expect(rejectedWith).toBeTruthy();
+  it('should pass the dummy test', function() {
+    expect(true).toBeTruthy();
   });
 });

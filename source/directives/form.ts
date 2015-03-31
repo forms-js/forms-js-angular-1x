@@ -9,7 +9,6 @@ module adaptor.directives {
       restrict: 'AE',
 
       scope: {
-        view: '=',
         validation: '=',
         model: '='
       },
@@ -27,17 +26,6 @@ module adaptor.directives {
 
         $scope.$watch('validation', function(validation:formsjs.ValidationSchema) {
           formsjsForm.validationSchema = validation;
-        });
-
-        $scope.$watch('view', function(view:formsjs.ViewSchema) {
-          formsjsForm.viewSchema = $scope.view;
-
-          if (formsjsForm.viewSchema) {
-            // TODO
-            // var fragment = builder(view);
-            // element[0].appendChild(fragment);
-            // $compile(element.children())(scope);
-          }
         });
 
         $element.on('submit', () => {

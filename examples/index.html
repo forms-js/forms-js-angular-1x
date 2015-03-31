@@ -28,16 +28,37 @@
             required: true,
             min: 6,
             pattern: /[0-9a-zA-Z]+/
+          },
+          firstname: {
+            required: true
+          },
+          lastname: {
+            required: true
           }
         };
+
+        $scope.view = {
+          firstname: {inputType: 'text', label: 'First name'},
+          lastname: {inputType: 'text', label: 'Last name'},
+        };
+
       });
     </script>
 
     <div class="container">
       <fjs-form validation="validation" model="model">
-        <fjs-text field-name="email"></fjs-text>
-        <fjs-text field-name="username"></fjs-text>
+
+        <h3>Directives</h3>
+        <fjs-text field-name="email" label="Email"></fjs-text>
+        <fjs-text field-name="username" label="Username"></fjs-text>
+
+        <h3>Generated</h3>
+        <fjs-view view="view">
+        </fjs-view>
+        
       </fjs-form>
     </div>
+
+
   </body>
 </html>

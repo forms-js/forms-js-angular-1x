@@ -8,6 +8,8 @@ module.exports = function(config) {
     preprocessors: {
     },
     files: [
+      'bower_components/angular/angular.js',
+      'bower_components/forms-js/dist/forms-js.js',
       'node_modules/es6-promise/dist/es6-promise.js',
       'dist/forms-js-angular-1x.js',
       'tests/**/*.js'

@@ -16,6 +16,14 @@ Now you can build source like so:
 gulp build
 ```
 
+
+To test the examples start a server:
+
+```shell
+gulp server
+```
+
+
 And run tests like so:
 
 ```shell

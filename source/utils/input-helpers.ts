@@ -12,11 +12,10 @@ module adaptor.utils {
       $scope.attributeMetadata = fjsForm.registerAttribute($scope.fieldName);
       $scope.watchPath = 'attributeMetadata.form.formData.' + $scope.fieldName;
 
-      $scope.$watch($scope.watchPath, (value:any) => {
-        $scope.bindable = formsjs.Flatten.read($scope.fieldName, fjsForm.formData);
-      });
-
       // TODO Determine if we need to setup bindable-to-watch-path initial binding.
+      $scope.$watch($scope.watchPath, (value:any) => {
+        $scope.bindable = value;
+      });
 
       var watcherInitialized:boolean = false;
 
@@ -31,6 +30,29 @@ module adaptor.utils {
         } else {
           watcherInitialized = true;
         }
+      });
+
+      $scope.displayAttribute = $scope.displayAttribute || 'display';
+      $scope.valueAttribute = $scope.valueAttribute || 'value';
+
+      $scope.$watch('options', (options:Array<any>) => {
+        var bindableOptions = [];
+
+        if (options) {
+          options.forEach((option) => {
+            if (typeof option === "object") {
+              bindableOptions.push(option);
+            } else {
+              var bindableOption = {};
+              bindableOption[$scope.displayAttribute] = option;
+              bindableOption[$scope.valueAttribute] = option;
+
+              bindableOptions.push(bindableOption);
+            }
+          });
+        }
+
+        $scope.bindableOptions = bindableOptions;
       });
     }
   }

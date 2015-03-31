@@ -5,9 +5,12 @@ module adaptor.interfaces {
   export interface InputDirectiveScope extends ng.IScope {
     attributeMetadata?:formsjs.AttributeMetadata;
     bindable?:any;
+    bindableOptions?:Array<any>;
+    displayAttribute?:string;
     fieldName:string;
     label?:string;
-    placeholder?:string;
+    options?:Array<any>;
+    valueAttribute?:string;
     watchPath?:string;
   }
 }

@@ -1,0 +1,19 @@
+<div>
+  <label ng-if="label" for="{{watchPath}}" ng-bind="label"></label>
+
+  <md-radio-group id="{{watchPath}}"
+                  ng-model="bindable"
+                  ng-disabled="attributeMetadata.disabled">
+
+    <md-radio-button ng-repeat="option in bindableOptions"
+                     aria-label="{{option[displayAttribute]}}"
+                     value="{{option[valueAttribute]}}">
+      {{option[displayAttribute]}}
+    </md-radio-button>
+  </md-radio-group>
+
+  <ng-messages ng-messages="attributeMetadata.errorMessages"
+               ng-show="attributeMetadata.errorMessages.length && !attributeMetadata.pristine">
+    <div ng-message ng-bind="attributeMetadata.errorMessages[0]"></div>
+  </ng-messages>
+</div>

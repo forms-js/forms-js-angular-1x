@@ -3,16 +3,17 @@
 
 module adaptor.directives {
 
-  export function CheckboxDirective($log:ng.ILogService):ng.IDirective {
+  export function RadioDirective($log:ng.ILogService):ng.IDirective {
 
     return {
       require: '^fjsForm',
       restrict: 'EA',
-      templateUrl: '/templates/checkbox.html',
+      templateUrl: '/templates/radio.html',
 
       scope: {
         fieldName: '@',
-        label: '@'
+        label: '@',
+        options: '='
       },
 
       link: function($scope:adaptor.interfaces.InputDirectiveScope,

@@ -33,13 +33,20 @@ module adaptor.directives {
         $scope.$watch($scope.watchPath, function(value:any) {
           $scope.bindable = formsjs.Flatten.read($scope.fieldName, $scope.attributeMetadata.form.formData);
         });
+
+        var initialized:boolean = false;
+
         $scope.$watch('bindable', (value:any) => {
           formsjs.Flatten.write(value, $scope.fieldName, $scope.attributeMetadata.form.formData);
 
-          $scope.attributeMetadata.validate().then(
-            () => $scope.$digest(),
-            () => $scope.$digest()
-          );
+          if (initialized) {
+            $scope.attributeMetadata.validate().then(
+              () => $scope.$digest(),
+              () => $scope.$digest()
+            );
+          } else {
+            initialized = true;
+          }
         });
       }
     };

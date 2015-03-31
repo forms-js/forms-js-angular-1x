@@ -7,8 +7,8 @@
          data-placeholder="{{placeholder}}"
          ng-disabled="attributeMetadata.disabled" />
 
-  <div ng-messages="attributeMetadata.errorMessages"
-       ng-show="attributeMetadata.errorMessages.length">
-    <div ng-bind="attributeMetadata.errorMessages"></div>
-  </div>
+  <ng-messages ng-messages="attributeMetadata.errorMessages"
+               ng-show="attributeMetadata.errorMessages.length">
+    <div ng-message ng-bind="attributeMetadata.errorMessages[0]"></div>
+  </ng-messages>
 </md-input-container>

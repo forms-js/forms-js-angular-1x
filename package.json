@@ -39,7 +39,9 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "phantomjs": "~1.9.13",
     "run-sequence": "~1.0.2",
-    "uglify-js2": "~2.1.11"
+    "uglify-js2": "~2.1.11",
+    "protractor": "~2.0.0",
+    "gulp-angular-protractor": "0.0.2"
   },
   "scripts": {
     "test": "gulp test",

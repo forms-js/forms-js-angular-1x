@@ -12,7 +12,7 @@ module.exports = function(config) {
       'bower_components/forms-js/dist/forms-js.js',
       'node_modules/es6-promise/dist/es6-promise.js',
       'dist/forms-js-angular-1x.js',
-      'tests/**/*.js'
+      'tests/unit/**/*.js'
     ],
     exclude: [],
     port: 9999,

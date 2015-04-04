@@ -21,7 +21,6 @@ module adaptor.directives {
             $compile(element.children())(scope);
           }
         });
-
       }
     };
   }

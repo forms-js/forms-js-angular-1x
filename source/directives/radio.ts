@@ -3,17 +3,17 @@
 
 module adaptor.directives {
 
-  export function TextDirective($log:ng.ILogService):ng.IDirective {
+  export function RadioDirective($log:ng.ILogService):ng.IDirective {
 
     return {
       require: '^fjsForm',
       restrict: 'EA',
-      templateUrl: '/templates/text.html',
+      templateUrl: '/templates/radio.html',
 
       scope: {
         fieldName: '@',
         label: '@',
-        placeholder: '@?'
+        options: '='
       },
 
       link: function($scope:adaptor.interfaces.InputDirectiveScope,

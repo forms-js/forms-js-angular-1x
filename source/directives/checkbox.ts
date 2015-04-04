@@ -3,17 +3,16 @@
 
 module adaptor.directives {
 
-  export function TextDirective($log:ng.ILogService):ng.IDirective {
+  export function CheckboxDirective($log:ng.ILogService):ng.IDirective {
 
     return {
       require: '^fjsForm',
       restrict: 'EA',
-      templateUrl: '/templates/text.html',
+      templateUrl: '/templates/checkbox.html',
 
       scope: {
         fieldName: '@',
-        label: '@',
-        placeholder: '@?'
+        label: '@'
       },
 
       link: function($scope:adaptor.interfaces.InputDirectiveScope,

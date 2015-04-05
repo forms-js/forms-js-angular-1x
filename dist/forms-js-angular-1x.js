@@ -37,11 +37,12 @@ var adaptor;
                                 bindableOptions.push(option);
                             }
                             else {
-                                var bindableOption = {};
-                                bindableOption[$scope.displayAttribute] = option;
-                                bindableOption[$scope.valueAttribute] = option;
-                                bindableOptions.push(bindableOption);
+                                bindableOptions.push((_a = {},
+                                    _a[$scope.displayAttribute] = option,
+                                    _a[$scope.valueAttribute] = option,
+                                    _a));
                             }
+                            var _a;
                         });
                     }
                     $scope.bindableOptions = bindableOptions;
@@ -250,7 +251,13 @@ var adaptor;
 /// <reference path="services/builder.ts" />
 var adaptor;
 (function (adaptor) {
-    angular.module('fjs', []).directive('fjsCheckbox', ['$log', adaptor.directives.CheckboxDirective]).directive('fjsRadio', ['$log', adaptor.directives.RadioDirective]).directive('fjsText', ['$log', adaptor.directives.TextDirective]).directive('fjsForm', ['$compile', adaptor.directives.FormDirective]).directive('fjsView', ['$compile', 'fjsBuilder', adaptor.directives.ViewDirective]).factory('fjsBuilder', adaptor.services.builder);
+    angular.module('fjs', [])
+        .directive('fjsCheckbox', ['$log', adaptor.directives.CheckboxDirective])
+        .directive('fjsRadio', ['$log', adaptor.directives.RadioDirective])
+        .directive('fjsText', ['$log', adaptor.directives.TextDirective])
+        .directive('fjsForm', ['$compile', adaptor.directives.FormDirective])
+        .directive('fjsView', ['$compile', 'fjsBuilder', adaptor.directives.ViewDirective])
+        .factory('fjsBuilder', adaptor.services.builder);
 })(adaptor || (adaptor = {}));
 
 return adaptor;

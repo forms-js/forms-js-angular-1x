@@ -28,6 +28,11 @@ describe('example', function() {
       expect(radios.get(1).getAttribute('value')).toBe('Male');
     });
 
+    it('should show "Female" and "Male" labels', function() {
+      expect(radios.get(0).getText()).toBe('Female');
+      expect(radios.get(1).getText()).toBe('Male');
+    });
+
     it('should not update the model on click', function() {
       expect(element(by.css('[field-name=string] md-radio-group')).evaluate('bindable')).toBeFalsy();
       radios.get(1).click();
@@ -58,6 +63,12 @@ describe('example', function() {
       expect(radios.get(2).getAttribute('value')).toBe('3');
     });
 
+    it('should show "1", "2", and "3" labels', function() {
+      expect(radios.get(0).getText()).toBe('1');
+      expect(radios.get(1).getText()).toBe('2');
+      expect(radios.get(2).getText()).toBe('3');
+    });
+
     it('should update the model if a different option is clicked', function() {
       expect(element(by.css('[field-name=number] md-radio-group')).evaluate('bindable')).toBe(2);
       radios.get(0).click();
@@ -80,6 +91,11 @@ describe('example', function() {
       expect(radios.get(0).getAttribute('value')).toBe('true');
       expect(radios.get(1).getAttribute('value')).toBe('false');
     });
+
+    it('should show "true" and "false" labels', function() {
+      expect(radios.get(0).getText()).toBe('true');
+      expect(radios.get(1).getText()).toBe('false');
+    });
   });
 
   describe('complex radio group', function() {
@@ -96,6 +112,11 @@ describe('example', function() {
     it('should pre-select option Foo by default', function() {
       expect(radios.get(0).getAttribute('aria-checked')).toBe('true');
       expect(radios.get(1).getAttribute('aria-checked')).toBe('false');
+    });
+
+    it('should show "Foo" and "Bar" labels', function() {
+      expect(radios.get(0).getText()).toBe('Foo');
+      expect(radios.get(1).getText()).toBe('Bar');
     });
 
     it('should show "foo" and "bar" options', function() {

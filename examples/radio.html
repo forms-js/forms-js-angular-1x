@@ -30,7 +30,11 @@
       {display: 'Bar', value: 'bar'}
     ];
 
-    $scope.validation = {};
+    $scope.validation = {
+      number: {
+        type: 'integer'
+      }
+    };
   });
 </script>
 
@@ -44,7 +48,7 @@
   </md-toolbar>
   <md-content class="md-padding">
     <p layout="row" layout-align="center center">
-      This page provides an interactive demo of <code>&lt;fjs-radio&gt;</code>.
+      This page provides an interactive demo of &lt;fjs-radio&gt;.
       It's also used by the Protractor integration tests (so be careful about changing it).
     </p>
     <fjs-form id="form" validation="validation" model="model">

@@ -11,6 +11,7 @@ module adaptor.directives {
       templateUrl: '/templates/checkbox.html',
 
       scope: {
+        disabled: '@?',
         fieldName: '@',
         label: '@'
       },

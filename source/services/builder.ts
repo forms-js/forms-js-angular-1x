@@ -16,7 +16,14 @@ module adaptor.services {
 
         // The rest of the view config is added as attributes.
         angular.forEach(config, function(value, name) {
-          elem.setAttribute(name, value);
+          switch (name) {
+            case 'options':
+              elem.setAttribute(name, JSON.stringify(value));
+              break;
+            default:
+              elem.setAttribute(name, value);
+              break;
+          }
         });
 
         elem.className = 'form-group';

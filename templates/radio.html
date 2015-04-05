@@ -2,10 +2,10 @@
   <label ng-if="label" for="{{watchPath}}" ng-bind="label"></label>
 
   <md-radio-group id="{{watchPath}}"
-                  ng-model="bindable"
-                  ng-disabled="attributeMetadata.disabled">
+                  ng-model="bindable">
 
     <md-radio-button ng-repeat="option in bindableOptions"
+                     ng-disabled="disabled || attributeMetadata.disabled"
                      aria-label="{{option[displayAttribute]}}"
                      value="{{option[valueAttribute]}}">
       {{option[displayAttribute]}}

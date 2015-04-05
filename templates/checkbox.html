@@ -1,7 +1,7 @@
 <md-input-container class="md-default-theme">
   <md-checkbox id="{{watchPath}}"
                aria-label="{{label}}"
-               ng-disabled="attributeMetadata.disabled"
+               ng-disabled="disabled || attributeMetadata.disabled"
                ng-model="bindable">
 
     {{label}}

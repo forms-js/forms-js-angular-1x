@@ -1,0 +1,47 @@
+<doctype html></doctype>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Form JS Angular 1.x example</title>
+
+  <link rel="stylesheet" href="https://rawgit.com/angular/bower-material/master/angular-material.css">
+  <link rel="stylesheet" href="https://material.angularjs.org/docs.css">
+</head>
+<body ng-app="example" style="overflow: scroll;">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-animate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-aria.js"></script>
+<script src="https://rawgit.com/angular/bower-material/master/angular-material.js"></script>
+<script src="../node_modules/forms-js/dist/forms-js.js"></script>
+<script src="../dist/forms-js-angular-1x.js"></script>
+<script>
+  var module = angular.module('example', ['ngAnimate', 'ngMaterial', 'fjs']);
+  module.controller('ExampleCtrl', function($scope) {
+    $scope.model = {
+      defaults: "Hello"
+    };
+
+    $scope.validation = {};
+  });
+</script>
+
+<div layout-fill ng-controller="ExampleCtrl">
+  <md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+      <h3>
+        <span>Checkbox</span>
+      </h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+    <fjs-form id="form" validation="validation" model="model">
+      <div layout="row" layout-sm="column" layout-align="space-around">
+        <fjs-text field-name="disabled" label="Disabled" disabled="true"></fjs-text>
+        <fjs-text field-name="enabled" label="Enabled with placeholder" placeholder="Helpful text goes here"></fjs-text>
+        <fjs-text field-name="defaults" label="Enabled (defaults to Hello)"></fjs-text>
+      </div>
+    </fjs-form>
+  </md-content>
+</div>
+</body>
+</html>

@@ -11,6 +11,7 @@ module adaptor.directives {
       templateUrl: '/templates/text.html',
 
       scope: {
+        disabled: '@?',
         fieldName: '@',
         label: '@',
         placeholder: '@?'

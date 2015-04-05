@@ -6,7 +6,7 @@
          aria-label="{{label}}"
          ng-model="bindable"
          data-placeholder="{{placeholder}}"
-         ng-disabled="attributeMetadata.disabled" />
+         ng-disabled="disabled || attributeMetadata.disabled" />
 
   <ng-messages ng-messages="attributeMetadata.errorMessages"
                ng-show="attributeMetadata.errorMessages.length && !attributeMetadata.pristine">

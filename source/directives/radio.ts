@@ -11,6 +11,7 @@ module adaptor.directives {
       templateUrl: '/templates/radio.html',
 
       scope: {
+        disabled: '@?',
         fieldName: '@',
         label: '@',
         options: '='

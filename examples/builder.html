@@ -44,8 +44,10 @@
         };
 
         $scope.view = {
-          firstname: {inputType: 'text', label: 'First name'},
-          lastname: {inputType: 'text', label: 'Last name'},
+          email: {inputType: 'text', label: 'Email'},
+          username: {inputType: 'text', label: 'Username', placeholder: 'This should be unique'},
+          tos: {inputType: 'checkbox', label: 'I agree to the TOS'},
+          gender: {inputType: 'radio', label: 'Gender', options: $scope.genders}
         };
       });
     </script>
@@ -60,13 +62,6 @@
       </md-toolbar>
       <md-content class="md-padding">
         <fjs-form id="form" validation="validation" model="model">
-          <h3>Directives</h3>
-          <fjs-text field-name="email" label="Email"></fjs-text>
-          <fjs-text field-name="username" label="Username" placeholder="This should be unique"></fjs-text>
-          <fjs-checkbox field-name="tos" label="I agree to the TOS"></fjs-checkbox>
-          <fjs-radio field-name="gender" label="Gender" options="genders"></fjs-radio>
-
-          <h3>Generated</h3>
           <fjs-view view="view"></fjs-view>
         </fjs-form>
       </md-content>

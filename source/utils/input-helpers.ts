@@ -17,21 +17,6 @@ module adaptor.utils {
         $scope.bindable = value;
       });
 
-      var watcherInitialized:boolean = false;
-
-      $scope.$watch('bindable', (value:any) => {
-        formsjs.Flatten.write(value, $scope.fieldName, fjsForm.formData);
-
-        if (watcherInitialized) {
-          $scope.attributeMetadata.validate().then(
-            () => $scope.$digest(),
-            () => $scope.$digest()
-          );
-        } else {
-          watcherInitialized = true;
-        }
-      });
-
       $scope.displayAttribute = $scope.displayAttribute || 'display';
       $scope.valueAttribute = $scope.valueAttribute || 'value';
 
@@ -53,6 +38,21 @@ module adaptor.utils {
         }
 
         $scope.bindableOptions = bindableOptions;
+      });
+
+      var watcherInitialized:boolean = false;
+
+      $scope.$watch('bindable', (value:any) => {
+        formsjs.Flatten.write(value, $scope.fieldName, fjsForm.formData);
+
+        if (watcherInitialized) {
+          $scope.attributeMetadata.validate().then(
+            () => $scope.$digest(),
+            () => $scope.$digest()
+          );
+        } else {
+          watcherInitialized = true;
+        }
       });
     }
   }

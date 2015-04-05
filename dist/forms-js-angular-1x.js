@@ -27,16 +27,6 @@ var adaptor;
                 $scope.$watch($scope.watchPath, function (value) {
                     $scope.bindable = value;
                 });
-                var watcherInitialized = false;
-                $scope.$watch('bindable', function (value) {
-                    formsjs.Flatten.write(value, $scope.fieldName, fjsForm.formData);
-                    if (watcherInitialized) {
-                        $scope.attributeMetadata.validate().then(function () { return $scope.$digest(); }, function () { return $scope.$digest(); });
-                    }
-                    else {
-                        watcherInitialized = true;
-                    }
-                });
                 $scope.displayAttribute = $scope.displayAttribute || 'display';
                 $scope.valueAttribute = $scope.valueAttribute || 'value';
                 $scope.$watch('options', function (options) {
@@ -56,6 +46,16 @@ var adaptor;
                     }
                     $scope.bindableOptions = bindableOptions;
                 });
+                var watcherInitialized = false;
+                $scope.$watch('bindable', function (value) {
+                    formsjs.Flatten.write(value, $scope.fieldName, fjsForm.formData);
+                    if (watcherInitialized) {
+                        $scope.attributeMetadata.validate().then(function () { return $scope.$digest(); }, function () { return $scope.$digest(); });
+                    }
+                    else {
+                        watcherInitialized = true;
+                    }
+                });
             };
             return InputHelpers;
         })();
@@ -74,6 +74,7 @@ var adaptor;
                 restrict: 'EA',
                 templateUrl: '/templates/checkbox.html',
                 scope: {
+                    disabled: '@?',
                     fieldName: '@',
                     label: '@'
                 },
@@ -135,6 +136,7 @@ var adaptor;
                 restrict: 'EA',
                 templateUrl: '/templates/radio.html',
                 scope: {
+                    disabled: '@?',
                     fieldName: '@',
                     label: '@',
                     options: '='
@@ -163,6 +165,7 @@ var adaptor;
                 restrict: 'EA',
                 templateUrl: '/templates/text.html',
                 scope: {
+                    disabled: '@?',
                     fieldName: '@',
                     label: '@',
                     placeholder: '@?'
@@ -220,7 +223,14 @@ var adaptor;
                     elem.setAttribute('field-name', key);
                     // The rest of the view config is added as attributes.
                     angular.forEach(config, function (value, name) {
-                        elem.setAttribute(name, value);
+                        switch (name) {
+                            case 'options':
+                                elem.setAttribute(name, JSON.stringify(value));
+                                break;
+                            default:
+                                elem.setAttribute(name, value);
+                                break;
+                        }
                     });
                     elem.className = 'form-group';
                     frag.appendChild(elem);

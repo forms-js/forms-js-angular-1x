@@ -28,11 +28,10 @@ module adaptor.utils {
             if (typeof option === "object") {
               bindableOptions.push(option);
             } else {
-              var bindableOption = {};
-              bindableOption[$scope.displayAttribute] = option;
-              bindableOption[$scope.valueAttribute] = option;
-
-              bindableOptions.push(bindableOption);
+              bindableOptions.push({
+                [$scope.displayAttribute]: option,
+                [$scope.valueAttribute]: option
+              });
             }
           });
         }

@@ -1,13 +1,15 @@
 exports.config = {
   allScriptsTimeout: 11000,
 
+  capabilities: {
+    browserName: 'chrome',
+    shardTestFiles: true,
+    maxInstances: 2
+  },
+
   specs: [
     'tests/integration/**/*.js'
   ],
-
-  capabilities: {
-    'browserName': 'chrome'
-  },
 
   seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://localhost:8000/examples/',

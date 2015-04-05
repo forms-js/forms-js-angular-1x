@@ -27,6 +27,12 @@ describe('example', function() {
       expect(radios.get(0).getAttribute('value')).toBe('Female');
       expect(radios.get(1).getAttribute('value')).toBe('Male');
     });
+
+    it('should not update the model on click', function() {
+      expect(element(by.css('[field-name=string] md-radio-group')).evaluate('bindable')).toBeFalsy();
+      radios.get(1).click();
+      expect(element(by.css('[field-name=string] md-radio-group')).evaluate('bindable')).toBeFalsy();
+    });
   });
 
   describe('number radio group', function() {
@@ -50,6 +56,12 @@ describe('example', function() {
       expect(radios.get(0).getAttribute('value')).toBe('1');
       expect(radios.get(1).getAttribute('value')).toBe('2');
       expect(radios.get(2).getAttribute('value')).toBe('3');
+    });
+
+    it('should update the model if a different option is clicked', function() {
+      expect(element(by.css('[field-name=number] md-radio-group')).evaluate('bindable')).toBe(2);
+      radios.get(0).click();
+      expect(element(by.css('[field-name=number] md-radio-group')).evaluate('bindable')).toBe('1'); // HACK
     });
   });
 
@@ -89,6 +101,12 @@ describe('example', function() {
     it('should show "foo" and "bar" options', function() {
       expect(radios.get(0).getAttribute('value')).toBe('foo');
       expect(radios.get(1).getAttribute('value')).toBe('bar');
+    });
+
+    it('should update the model if a different option is clicked', function() {
+      expect(element(by.css('[field-name=complex] md-radio-group')).evaluate('bindable')).toBe('foo');
+      radios.get(1).click();
+      expect(element(by.css('[field-name=complex] md-radio-group')).evaluate('bindable')).toBe('bar');
     });
   });
 });

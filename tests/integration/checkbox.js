@@ -36,7 +36,7 @@ describe('example', function() {
       checkbox = element(by.css('[field-name=enabled]'));
     });
 
-    it('should show a "Disabled" label', function() {
+    it('should show a "Enabled" label', function() {
       expect(checkbox.getText()).toBe("Enabled");
     });
 
@@ -54,7 +54,7 @@ describe('example', function() {
       checkbox = element(by.css('[field-name=defaults]'));
     });
 
-    it('should show a "Disabled" label', function() {
+    it('should show a "Enabled..." label', function() {
       expect(checkbox.getText()).toBe("Enabled (defaults to selected)");
     });
 
